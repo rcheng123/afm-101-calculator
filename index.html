@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/calculate.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+</head>
+<body>
+
+
+    <ul class="navigation">
+        <li class="nav-item"><a href="#">Home</a></li>
+        <li class="nav-item"><a href="#">Portfolio</a></li>
+        <li class="nav-item"><a href="#">About</a></li>
+        <li class="nav-item"><a href="#">Blog</a></li>
+        <li class="nav-item"><a href="#">Contact</a></li>
+    </ul>
+
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+    <label for="nav-trigger"></label>
+
+    <div class="site-wrap">
+
+        <!-- Date and Time Experiment -->
+
+        <script>
+            $.cookie(dateAndTime(), dateAndTime(), { expires: 3 });
+            // alert(JSON.stringify($.cookie()));
+            alert(Object.keys($.cookie()));
+            alert(($.cookie())[Object.keys($.cookie())[Object.keys($.cookie()).length - 1]]);
+
+            function dateAndTime() {
+                var d = new Date();
+                var n = d.toJSON();
+                return n;
+            }
+
+            $(function(){
+                $(":button").click(function() {
+                    var fired_button = $(this).val();
+                    alert(fired_button);
+                });
+            });
+
+
+        </script>
+
+        <h1>AFM 101 Dictionary and Calculator</h1>
+
+        <h3>Most Recent Calculations</h3>
+
+        <div class="form-style-2" id ="most-recent-cal">
+        </div>
+
+
+
+        <h3>Present Value of Single Sum</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="pvss1" type="text" class="input-field"  value="Future Value" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="pvss2" type="text" class="input-field" value="Number of Periods" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field3"><input id ="pvss3" type="text" class="input-field" value="Interest Rate per Period (%)" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field4"><input id ="pvss4" type="text" class="input-field" value="Compounding Times per Period" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="pvss_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="presentValueSingleSum('pvss1','pvss2','pvss3', 'pvss4');"/></label>
+            </form>
+
+        </div>
+
+        <h3>Present Value of Ordinary Annuity</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="pvoa1" type="text" class="input-field"  value="Future Value" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="pvoa2" type="text" class="input-field" value="Number of Periods" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field3"><input id ="pvoa3" type="text" class="input-field" value="Interest Rate per Period (%)" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field4"><input id ="pvoa4" type="text" class="input-field" value="Compounding Times per Period" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="pvoa_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="presentValueOrdinaryAnnuity('pvoa1','pvoa2','pvoa3', 'pvoa4');"/></label>
+            </form>
+
+        </div>
+
+
+        <h3>Current Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="cr1" type="text" class="input-field"  value="Current Asset" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="cr2" type="text" class="input-field" value="Current Liabilities" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="current_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('cr1','cr2','current_answer')"/></label>
+            </form>
+
+        </div>
+
+        <h3>Cash Ratio</h3>
+
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="c1" type="text" class="input-field"  value="Cash" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="c2" type="text" class="input-field" value="Cash Equivalents" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field3"><input id ="c3" type="text" class="input-field" value="Current Liabilities" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="cash_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="cash('c1','c2','c3')"/></label>
+            </form>
+
+        </div>
+
+
+
+        <h3>Quick Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="q1" type="text" class="input-field"  value="Cash" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="q2" type="text" class="input-field" value="Cash Equivalents" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="q3" type="text" class="input-field" value="Short Term Investments" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="q4" type="text" class="input-field" value="Net Trade Receivable" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="q5" type="text" class="input-field" value="Current Liabilities" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="quick_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="quick('q1','q2','q3','q4','q5')"/></label>
+            </form>
+
+        </div>
+
+        <h3>Total Asset Turnover</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="tat1" type="text" class="input-field"  value="Net Sales" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="tat2" type="text" class="input-field" value="Average Total Assets" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="tat_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('tat1','tat2','tat_answer')"/></label>
+            </form>
+
+        </div>
+
+        <h3>Fixed Asset Turnover</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="fat1" type="text" class="input-field"  value="Net Sales" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="fat2" type="text" class="input-field" value="Average Net Fixed Assets" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="fat_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('fat1','fat2','fat_answer')"/></label>
+            </form>
+
+        </div>
+
+
+        <h3>Return on Assets</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="roa1" type="text" class="input-field"  value="Net Earnings" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="roa2" type="text" class="input-field" value="Interest Expense" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field3"><input id ="roa3" type="text" class="input-field" value="Average Total Asset" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="roa_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="roa('roa1','roa2','roa3')"/></label>
+            </form>
+
+        </div>
+
+        <h3>Return on Equity</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="roe1" type="text" class="input-field"  value="Net Earnings" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="roe2" type="text" class="input-field" value="Average Shareholder's Equity" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="roe_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('roe1','roe2','roe_answer')"/></label>
+            </form>
+
+        </div>
+
+        <h3>Earnings Per Share</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="eps1" type="text" class="input-field"  value="Net Earnings Available to Common Shareholders" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="eps2" type="text" class="input-field" value="Average Number of Common Shares Outstanding" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="eps_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('eps1','eps2','eps_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Net Profit Margin</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="npm1" type="text" class="input-field"  value="Net Earnings" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="npm2" type="text" class="input-field" value="Sales" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="eps_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('npm1','npm2','npm_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Financial Leverage Percentage</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="flp1" type="text" class="input-field"  value="Return on Equity" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="flp2" type="text" class="input-field" value="Return on Assets" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="flp_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="flp('flp1','flp2')"/></label>
+            </form>
+        </div>
+
+        <h3>Quality of Earnings</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="qoe1" type="text" class="input-field"  value="Cash Flow from Operating Activities" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="qoe2" type="text" class="input-field" value="Net Earnings" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="qoe_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('qoe1','qoe2','qoe_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Capital Expenditures Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="cer1" type="text" class="input-field"  value="Cash Flow from Operating Activities" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="cer2" type="text" class="input-field" value="Cash Paid for Capital Expenditures" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="cer_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('cer1','cer2','cer_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Debt to Equity Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="dter1" type="text" class="input-field"  value="Total Liabilities" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="dter2" type="text" class="input-field" value="Total Shareholders' Equity" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="dter_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('dter1','dter2','dter_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Gross Profit Percentage</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="gpp1" type="text" class="input-field"  value="Gross Profit" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="gpp2" type="text" class="input-field" value="Net Sales" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="gpp_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('gpp1','gpp2','gpp_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Receivables Turnover Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="rtr1" type="text" class="input-field"  value="Net Credit Sales" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="rtr2" type="text" class="input-field" value="Average Net Trade Receivables" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="rtr_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('rtr1','rtr2','rtr_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Average Age of Receivables</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="aaor1" type="text" class="input-field"  value="Receivables Turnover Ratio" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="aaor_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="aaor('aaor1')"/></label>
+            </form>
+        </div>
+
+        <h3>Inventory Turnover</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="it1" type="text" class="input-field"  value="Cost of Sales" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="it2" type="text" class="input-field" value="Average Inventory" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="it_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('it1','it2','it_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Average Days' Supply of Inventory</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="adsoi1" type="text" class="input-field"  value="Inventory Turnover Ratio" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="adsoi_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="adsoi('adsoi1')"/></label>
+            </form>
+        </div>
+
+        <h3>Trade Payables Turnover Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="tptr1" type="text" class="input-field"  value="Cost of Sales" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="tptr2" type="text" class="input-field" value="Average Net Trade Payables" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="tptr_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('tptr1','tptr2','tptr_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Average Age of Payables</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="aaop1" type="text" class="input-field"  value="Trade Payables Turnover Ratio" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="aaop_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="aaop('aaop1')"/></label>
+            </form>
+        </div>
+
+        <h3>Times Interest Earned Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="tier1" type="text" class="input-field"  value="Earnings before Interest and Taxes" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="tier2" type="text" class="input-field" value="Interest Expense" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="tier_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('tier1','tier2','tier_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Cash Coverage Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="ccr1" type="text" class="input-field"  value="Cash Flow from Operating Activities before Interest and Taxes" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="ccr2" type="text" class="input-field" value="Interest Paid" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="ccr_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('ccr1','ccr2','ccr_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Dividend Yield Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="dyr1" type="text" class="input-field"  value="Dividends per Share" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="dyr2" type="text" class="input-field" value="Market Price per Share" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="dyr_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('dyr1','dyr2','dyr_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Price/Earnings Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="per1" type="text" class="input-field"  value="Current Market Price per Share" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="per2" type="text" class="input-field" value="Earnings per Share" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="per_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('per1','per2','per_answer')"/></label>
+            </form>
+        </div>
+
+        <h3>Debt to Assets Ratio</h3>
+
+        <div class="form-style-2">
+            <form action="" method="post">
+                <label for="field1"><input id="dtar1" type="text" class="input-field"  value="Total Liabilities" onclick= "this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <label for="field2"><input id ="dtar2" type="text" class="input-field" value="Total Assets" onclick="this.select();" onfocus= "form_onfocus(id)" onblur="form_onblur(id)"/></label>
+                <h4>Answer: <span id="dtar_answer"></span></h4>
+                <label><input type="button" value="Calculate" onclick="twoDivide('dtar1','dtar2','dtar_answer')"/></label>
+            </form>
+        </div>
+
+
+
+
+        <p>AFM 101 Calculator by Robin Cheng</p>
+    </div>
+
+</body>
